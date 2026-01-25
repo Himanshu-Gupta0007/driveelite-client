@@ -1,12 +1,20 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function App() {
+  /* =====================
+     STATE
+  ===================== */
   const [count, setCount] = useState(0);
   const [theme, setTheme] = useState("light");
+
   const [todo, setTodo] = useState("");
   const [todos, setTodos] = useState([]);
+
   const [cart, setCart] = useState([]);
 
+  /* =====================
+     PRODUCTS
+  ===================== */
   const products = [
     { id: 1, name: "Laptop", price: 50000 },
     { id: 2, name: "Mobile", price: 20000 },
@@ -15,65 +23,101 @@ export default function App() {
     { id: 5, name: "Mouse", price: 800 },
   ];
 
+  /* =====================
+     EFFECT
+  ===================== */
   useEffect(() => {
-    console.log("App Rendered");
+    console.log("App Loaded");
   }, []);
 
+  /* =====================
+     TODO FUNCTIONS
+  ===================== */
   const addTodo = () => {
     if (!todo.trim()) return;
     setTodos([...todos, todo]);
     setTodo("");
   };
 
+  const deleteTodo = (index) => {
+    setTodos(todos.filter((_, i) => i !== index));
+  };
+
+  const clearTodos = () => {
+    setTodos([]);
+  };
+
+  /* =====================
+     CART FUNCTIONS
+  ===================== */
   const addToCart = (product) => {
     setCart([...cart, product]);
   };
 
-  const totalPrice = cart.reduce((a, b) => a + b.price, 0);
+  const removeFromCart = (index) => {
+    setCart(cart.filter((_, i) => i !== index));
+  };
 
+  const totalPrice = cart.reduce((sum, item) => sum + item.price, 0);
+
+  /* =====================
+     THEME
+  ===================== */
+  const toggleTheme = () => {
+    setTheme(theme === "light" ? "dark" : "light");
+  };
+
+  /* =====================
+     UI
+  ===================== */
   return (
     <div
       className={`min-h-screen p-6 ${
-        theme === "light" ? "bg-gray-100 text-black" : "bg-gray-900 text-white"
+        theme === "light"
+          ? "bg-gray-100 text-black"
+          : "bg-gray-900 text-white"
       }`}
     >
-      <div className="max-w-3xl mx-auto space-y-6">
+      <div className="max-w-4xl mx-auto space-y-8">
 
-        <h1 className="text-3xl font-bold text-center">
-          🚀 BIG REACT + TAILWIND APP
-        </h1>
-
-        <button
-          onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-        >
-          Toggle Theme
-        </button>
+        {/* HEADER */}
+        <header className="text-center">
+          <h1 className="text-3xl font-bold">
+            🚀 React + Tailwind Practice App
+          </h1>
+          <button
+            onClick={toggleTheme}
+            className="mt-4 px-4 py-2 bg-blue-600 text-white rounded"
+          >
+            Toggle Theme
+          </button>
+        </header>
 
         {/* COUNTER */}
-        <div className="bg-white text-black p-4 rounded shadow">
-          <h2 className="text-xl font-semibold">Counter</h2>
-          <p className="text-2xl">{count}</p>
+        <section className="bg-white text-black p-4 rounded shadow">
+          <h2 className="text-xl font-semibold mb-2">Counter</h2>
+          <p className="text-3xl mb-2">{count}</p>
           <div className="space-x-2">
             <button
               onClick={() => setCount(count + 1)}
-              className="px-3 py-1 bg-green-500 text-white rounded"
+              className="px-4 py-1 bg-green-500 text-white rounded"
             >
               +
             </button>
             <button
               onClick={() => setCount(count - 1)}
-              className="px-3 py-1 bg-red-500 text-white rounded"
+              className="px-4 py-1 bg-red-500 text-white rounded"
             >
               -
             </button>
           </div>
-        </div>
+        </section>
 
-        {/* TODO */}
-        <div className="bg-white text-black p-4 rounded shadow">
-          <h2 className="text-xl font-semibold">Todo App</h2>
-          <div className="flex gap-2 mt-2">
+        {/* TODO APP */}
+        <section className="bg-white text-black p-4 rounded shadow">
+          <h2 className="text-xl font-semibold mb-2">Todo App</h2>
+
+          <div className="flex gap-2">
             <input
               value={todo}
               onChange={(e) => setTodo(e.target.value)}
@@ -88,52 +132,87 @@ export default function App() {
             </button>
           </div>
 
-          <ul className="mt-3 space-y-1">
+          <ul className="mt-3 space-y-2">
             {todos.map((t, i) => (
               <li
                 key={i}
-                className="flex justify-between bg-gray-200 px-2 py-1 rounded"
+                className="flex justify-between items-center bg-gray-200 px-3 py-1 rounded"
               >
                 {t}
                 <button
-                  onClick={() =>
-                    setTodos(todos.filter((_, index) => index !== i))
-                  }
+                  onClick={() => deleteTodo(i)}
+                  className="text-red-600"
                 >
                   ❌
                 </button>
               </li>
             ))}
           </ul>
-        </div>
+
+          {todos.length > 0 && (
+            <button
+              onClick={clearTodos}
+              className="mt-3 bg-red-500 text-white px-4 py-1 rounded"
+            >
+              Clear All
+            </button>
+          )}
+        </section>
 
         {/* PRODUCTS */}
-        <div className="bg-white text-black p-4 rounded shadow">
-          <h2 className="text-xl font-semibold">Products</h2>
-          {products.map((p) => (
-            <div
-              key={p.id}
-              className="flex justify-between items-center mt-2"
-            >
-              <span>
-                {p.name} - ₹{p.price}
-              </span>
-              <button
-                onClick={() => addToCart(p)}
-                className="bg-purple-500 text-white px-3 py-1 rounded"
+        <section className="bg-white text-black p-4 rounded shadow">
+          <h2 className="text-xl font-semibold mb-3">Products</h2>
+
+          <div className="space-y-2">
+            {products.map((p) => (
+              <div
+                key={p.id}
+                className="flex justify-between items-center border-b pb-2"
               >
-                Add
+                <span>
+                  {p.name} — ₹{p.price}
+                </span>
+                <button
+                  onClick={() => addToCart(p)}
+                  className="bg-purple-500 text-white px-3 py-1 rounded"
+                >
+                  Add
+                </button>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* CART */}
+        <section className="bg-white text-black p-4 rounded shadow">
+          <h2 className="text-xl font-semibold mb-2">Cart</h2>
+
+          {cart.length === 0 && <p>No items in cart</p>}
+
+          {cart.map((item, i) => (
+            <div
+              key={i}
+              className="flex justify-between items-center mb-1"
+            >
+              <span>{item.name}</span>
+              <button
+                onClick={() => removeFromCart(i)}
+                className="text-red-600"
+              >
+                Remove
               </button>
             </div>
           ))}
-        </div>
 
-        {/* CART */}
-        <div className="bg-white text-black p-4 rounded shadow">
-          <h2 className="text-xl font-semibold">Cart</h2>
-          <p>Total Items: {cart.length}</p>
-          <p>Total Price: ₹{totalPrice}</p>
-        </div>
+          <hr className="my-2" />
+
+          <p className="font-semibold">
+            Total Items: {cart.length}
+          </p>
+          <p className="font-semibold">
+            Total Price: ₹{totalPrice}
+          </p>
+        </section>
 
       </div>
     </div>
