@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";  // <-- Yeh import add kiya
 import CarOwnerBanner from "../components/CarOwnerBanner";
+import Testimonial from "../components/Testimonial";
+import Subscribe from "../components/Subscribe";
+import Footer from "../components/Footer";
 
 
 
@@ -194,7 +197,27 @@ const Home = () => {
       {/* Car Owner Banner */}
 <div className="mt-24">
   <CarOwnerBanner />
+ 
 </div>
+
+
+
+<div className="mt-20">
+<Testimonial />
+ 
+</div>
+
+
+<div className="mt-24">
+<Subscribe />
+ 
+</div>
+
+<div className="mt-24">
+<Footer />
+ 
+</div>
+
 
     </div>
   );
