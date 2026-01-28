@@ -59,7 +59,9 @@ const Home = () => {
 
   // Card click handler (poora card clickable)
   const handleCardClick = (carId) => {
-    navigate(`/car/${carId}`);  // Example: /car/1, /car/2 etc.
+    navigate(`/car/${carId}`); 
+    navigate(`/cars/${carId}`);
+     // Example: /car/1, /car/2 etc.
     // Agar query params chahiye to: navigate(`/car/${carId}?pickup=${pickupDate}`);
   };
 
