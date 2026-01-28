@@ -221,3 +221,145 @@ export const cars = [
     rating: "4.3 • 55 trips",
   },
 ];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const { execSync } = require("child_process");
+const fs = require("fs");
+
+// Your commit date
+const COMMIT_DATE = "2026-01-28";
+
+// Make sure README.md exists
+if (!fs.existsSync("README.md")) {
+  fs.writeFileSync("README.md", "GitHub green commits\n");
+}
+
+for (let i = 1; i <= 100; i++) {
+  // Set commit time (different minutes for each commit)
+  const hour = 12;
+  const minute = i;
+  const second = 0;
+  const date = `${COMMIT_DATE} ${hour}:${minute}:${second}`;
+
+  // Append some text to README.md
+  fs.appendFileSync("README.md", `Commit number ${i}\n`);
+
+  // Stage the file
+  execSync("git add README.md");
+
+  // Commit with specific date
+  execSync(
+    `git commit -m "Commit ${i}" --date="${date}"`
+  );
+}
+
+console.log("✅ 100 commits done for", COMMIT_DATE);
+
+
+
+const { execSync } = require("child_process");
+const fs = require("fs");
+
+// INPUTS
+const START_DATE = new Date("2026-01-01");
+const END_DATE = new Date("2026-12-31");
+const COMMITS_PER_DAY = 3;
+const FILE = "README.md";
+
+// Initialize file
+if (!fs.existsSync(FILE)) fs.writeFileSync(FILE, "GitHub contributions\n");
+
+// Helper to format date
+function formatDate(date) {
+  const pad = (n) => n.toString().padStart(2, "0");
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
+}
+
+// Algorithm
+let currentDate = new Date(START_DATE);
+while (currentDate <= END_DATE) {
+  for (let i = 0; i < COMMITS_PER_DAY; i++) {
+    const commitDate = new Date(currentDate);
+    commitDate.setHours(Math.floor(Math.random() * 24));
+    commitDate.setMinutes(Math.floor(Math.random() * 60));
+    commitDate.setSeconds(Math.floor(Math.random() * 60));
+
+    const dateString = formatDate(commitDate);
+
+    fs.appendFileSync(FILE, `Commit on ${dateString}\n`);
+    execSync(`git add ${FILE}`);
+    execSync(`git commit -m "Commit on ${dateString}" --date="${dateString}"`);
+  }
+  currentDate.setDate(currentDate.getDate() + 1);
+}
+
+console.log("✅ GitHub contributions filled using DSA approach!");
+
+
+const { execSync } = require("child_process");
+const fs = require("fs");
+
+// ================== CONFIGURATION ==================
+const START_DATE = new Date("2026-01-01"); // start of year
+const END_DATE = new Date("2026-12-31");   // end of year
+const COMMITS_PER_DAY = 5;                  // number of commits per day
+const FILE = "README.md";                   // file to track
+// ===================================================
+
+// Initialize file
+if (!fs.existsSync(FILE)) fs.writeFileSync(FILE, "GitHub Green Contributions\n");
+
+// Helper function to format date
+function formatDate(date) {
+  const pad = (n) => n.toString().padStart(2, "0");
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
+}
+
+// Generate a random time in a day
+function randomTimeInDay(date) {
+  const newDate = new Date(date);
+  newDate.setHours(Math.floor(Math.random() * 24));
+  newDate.setMinutes(Math.floor(Math.random() * 60));
+  newDate.setSeconds(Math.floor(Math.random() * 60));
+  return newDate;
+}
+
+// Core algorithm
+function generateCommits(start, end, commitsPerDay) {
+  let currentDate = new Date(start);
+
+  while (currentDate <= end) {
+    for (let i = 0; i < commitsPerDay; i++) {
+      const commitDate = randomTimeInDay(currentDate);
+      const dateString = formatDate(commitDate);
+
+      fs.appendFileSync(FILE, `Commit on ${dateString}\n`);
+      execSync(`git add ${FILE}`);
+      execSync(`git commit -m "Commit on ${dateString}" --date="${dateString}"`);
+    }
+    currentDate.setDate(currentDate.getDate() + 1); // move to next day
+  }
+}
+
+// Execute the algorithm
+console.log("🚀 Starting commit generation...");
+generateCommits(START_DATE, END_DATE, COMMITS_PER_DAY);
+console.log("✅ Done! GitHub profile filled for the year.");
+
+// ================== OPTIONAL: PUSH ==================
+// execSync("git branch -M main");
+// execSync("git remote add origin https://github.com/username/RepoName.git");
+// execSync("git push -u origin main");
