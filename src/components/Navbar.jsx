@@ -41,6 +41,15 @@ const Navbar = () => {
           className="hidden md:block border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
 
+
+        {/* 🔥 Owner Dashboard Link */}
+<Link
+  to="/owner"
+  className="hidden md:block font-medium text-gray-700 hover:text-blue-600"
+>
+  Owner Panel
+</Link>
+
         {/* Login Button */}
         <Link to="/login">
           <button className="hidden md:block bg-blue-600 text-white px-4 py-2 rounded-lg">
