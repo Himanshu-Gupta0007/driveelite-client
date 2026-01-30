@@ -6,7 +6,7 @@ import { cars } from "../data/cars"; // ✅ Import unified cars array
 import CarOwnerBanner from "../components/CarOwnerBanner";
 import Testimonial from "../components/Testimonial";
 import Subscribe from "../components/Subscribe";
-import Footer from "../components/Footer";
+
 
 const Home = () => {
   const [pickupLocation, setPickupLocation] = useState("");
@@ -124,7 +124,7 @@ const Home = () => {
       <CarOwnerBanner />
       <Testimonial />
       <Subscribe />
-      <Footer />
+      
     </div>
   );
 };
