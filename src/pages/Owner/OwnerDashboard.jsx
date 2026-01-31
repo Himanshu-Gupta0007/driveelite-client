@@ -129,7 +129,21 @@ const OwnerDashboard = () => {
           <h3 className="text-lg font-bold mb-2">Add New Car</h3>
           <p className="text-gray-400 text-sm">Expand your fleet quickly</p>
         </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
         
+
         <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-2xl border border-gray-700 hover:border-pink-500/50 transition-all duration-300 cursor-pointer">
           <h3 className="text-lg font-bold mb-2">Manage Availability</h3>
           <p className="text-gray-400 text-sm">Update car status & pricing</p>
