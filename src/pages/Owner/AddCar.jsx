@@ -230,6 +230,18 @@ const AddCar = () => {
           </div>
         </div>
 
+
+
+
+
+
+
+
+
+
+
+        
+
         {/* Features */}
         <div className="bg-gray-900/70 backdrop-blur-md border border-gray-800 rounded-2xl p-8 shadow-2xl">
           <h2 className="text-2xl font-bold mb-6 text-cyan-400">Key Features</h2>

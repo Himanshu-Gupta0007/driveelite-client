@@ -116,9 +116,11 @@ const OwnerDashboard = () => {
                       {b.status}
                     </span>
                   </td>
+
                 </tr>
               ))}
             </tbody>
+          
           </table>
         </div>
       </div>
