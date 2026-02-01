@@ -17,6 +17,22 @@ const Auth = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
     if (isSignup) {
       console.log("Signup Data:", formData);
     } else {
