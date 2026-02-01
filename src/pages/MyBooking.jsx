@@ -37,16 +37,14 @@ const MyBooking = () => {
               key={booking.id}
               className="bg-white rounded-xl shadow-md p-6 flex flex-col md:flex-row gap-6"
             >
-              {/* Car Image */}
               <img
                 src={car.image}
                 alt={car.name}
                 className="w-full md:w-60 h-40 object-cover rounded-lg"
               />
 
-              {/* Details */}
               <div className="flex-1">
-                <h2 className="text-xl font-semibold text-gray-800">
+                <h2 className="text-xl font-semibold">
                   {car.name}
                 </h2>
 
@@ -58,24 +56,13 @@ const MyBooking = () => {
                   {booking.amount}
                 </p>
 
-                <p className="text-sm text-gray-500 mt-1">
-                  {car.type || "Luxury Car"}
+                <p className="text-sm text-gray-500">
+                  {booking.days} days
                 </p>
               </div>
 
-              {/* Status */}
               <div className="flex items-center">
-                <span
-                  className={`px-4 py-2 rounded-full text-sm font-semibold
-                    ${
-                      booking.status === "Confirmed"
-                        ? "bg-green-100 text-green-700"
-                        : booking.status === "Pending"
-                        ? "bg-yellow-100 text-yellow-700"
-                        : "bg-blue-100 text-blue-700"
-                    }
-                  `}
-                >
+                <span className="px-4 py-2 rounded-full bg-green-100 text-green-700 font-semibold">
                   {booking.status}
                 </span>
               </div>

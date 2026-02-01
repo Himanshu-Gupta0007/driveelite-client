@@ -21,7 +21,7 @@ const CarDetail = () => {
 
   const handleBooking = () => {
     if (!pickupDate || !returnDate) {
-      toast.error(" Please select both dates");
+      toast.error("Please select both dates");
       return;
     }
 
@@ -29,26 +29,54 @@ const CarDetail = () => {
     const end = new Date(returnDate);
 
     if (end <= start) {
-      toast.error(" Return date must be after pick-up date");
+      toast.error("Return date must be after pick-up date");
       return;
     }
 
-    const days =
-      Math.ceil((end - start) / (1000 * 60 * 60 * 24));
+    const days = Math.ceil(
+      (end - start) / (1000 * 60 * 60 * 24)
+    );
 
-    const pricePerDay = Number(car.price.replace(/[^0-9]/g, ""));
+    const pricePerDay = Number(
+      car.price.replace(/[^0-9]/g, "")
+    );
+
     const totalPrice = days * pricePerDay;
 
-    toast.success(
-      ` Booking Confirmed!\n🚗 ${car.name}\n📅 ${days} days\n💰 ₹${totalPrice}`,
-      { duration: 5000 }
+    const newBooking = {
+      id: Date.now(),
+      car: car.name,
+      pickup: pickupDate,
+      dropoff: returnDate,
+      days,
+      amount: `₹${totalPrice}`,
+      status: "Confirmed",
+    };
+
+    const existingBookings =
+      JSON.parse(localStorage.getItem("bookings")) || [];
+
+    localStorage.setItem(
+      "bookings",
+      JSON.stringify([...existingBookings, newBooking])
     );
+
+    toast.success(
+      `Booking Confirmed 🚗\n${car.name}\n${days} days\n₹${totalPrice}`,
+      { duration: 4000 }
+    );
+
+    setPickupDate("");
+    setReturnDate("");
   };
 
   return (
     <div className="p-6 md:p-12 max-w-6xl mx-auto">
 
-      <Link to="/cars" className="inline-block mb-8 text-indigo-600 font-semibold">
+      <Link
+        to="/cars"
+        className="inline-block mb-8 text-indigo-600 font-semibold"
+      >
         ← Back to Cars
       </Link>
 
@@ -92,9 +120,8 @@ const CarDetail = () => {
             </h3>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-
               <div className="flex flex-col">
-                <label className="text-sm font-semibold text-gray-600 mb-2">
+                <label className="text-sm font-semibold mb-2">
                   Pick-up Date
                 </label>
                 <input
@@ -106,7 +133,7 @@ const CarDetail = () => {
               </div>
 
               <div className="flex flex-col">
-                <label className="text-sm font-semibold text-gray-600 mb-2">
+                <label className="text-sm font-semibold mb-2">
                   Return Date
                 </label>
                 <input
