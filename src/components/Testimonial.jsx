@@ -2,119 +2,68 @@ import React from "react";
 
 const Testimonial = () => {
   return (
-    <div className="flex flex-col items-center text-center py-20 px-4">
-      <h1 className="text-4xl font-bold max-w-[740px] mb-[72px]">
-        Trusted by <span className="text-blue-600">30k+</span> world class companies
-        & design teams
+    <div className="flex flex-col items-center text-center py-20 px-4 bg-gray-50">
+      <h1 className="text-4xl font-bold max-w-[760px] mb-16 text-gray-900">
+        Trusted by <span className="text-indigo-600">30,000+</span> happy riders
+        across India with <span className="text-green-600">PrimeDrive</span>
       </h1>
 
-      <div className="flex flex-wrap items-center justify-center gap-4">
+      <div className="flex flex-wrap items-center justify-center gap-6">
         {/* Card 1 */}
-        <div className="flex flex-col items-center bg-white px-3 py-8 rounded-lg border border-gray-300/80 max-w-[272px] text-sm text-gray-500">
-          <div className="relative mb-4">
-            <img
-              className="h-16 w-16 rounded-full"
-              src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/userImage/userImage1.png"
-              alt="Donald Jackman"
-            />
-            <svg
-              className="absolute top-0 -right-2"
-              width="22"
-              height="22"
-              viewBox="0 0 22 22"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <circle cx="10.5" cy="10.5" r="8.5" fill="#2563EB" />
-              <path
-                d="m11.584 13.872 1.752-3.288 1.104-.288a2.7 2.7 0 0 1-.432.576.76.76 0 0 1-.552.24q-.672 0-1.248-.576t-.576-1.464q0-.936.624-1.584.648-.672 1.584-.672.888 0 1.536.672.672.648.672 1.584 0 .384-.168.912-.144.504-.576 1.296l-1.92 3.552zm-5.4 0 1.752-3.288 1.08-.288a2.2 2.2 0 0 1-.408.576.76.76 0 0 1-.552.24q-.696 0-1.272-.576t-.576-1.464q0-.936.624-1.584.648-.672 1.584-.672.888 0 1.536.672.672.648.672 1.584 0 .384-.144.912-.144.504-.576 1.296L7.96 14.832z"
-                fill="#fff"
-              />
-            </svg>
-          </div>
+        <div className="flex flex-col items-center bg-white px-6 py-8 rounded-2xl border shadow-sm max-w-[300px] text-sm text-gray-600 hover:shadow-lg transition">
+          <img
+            className="h-16 w-16 rounded-full mb-4"
+            src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/userImage/userImage1.png"
+            alt="Rahul Mehta"
+          />
 
           <p>
-            “Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.”
+            “PrimeDrive made my business trip effortless. The car was spotless,
+            pickup was smooth, and pricing was transparent. Highly recommended!”
           </p>
-          <p className="text-lg text-gray-800 font-medium mt-5">
-            Donald Jackman
+
+          <p className="text-lg text-gray-900 font-semibold mt-5">
+            Rahul Mehta
           </p>
-          <p className="text-xs">Content Creator</p>
+          <p className="text-xs text-gray-500">Startup Founder • Delhi</p>
         </div>
 
         {/* Card 2 */}
-        <div className="flex flex-col items-center bg-white px-3 py-8 rounded-lg border border-gray-300/80 max-w-[272px] text-sm text-gray-500">
-          <div className="relative mb-4">
-            <img
-              className="h-16 w-16 rounded-full"
-              src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/userImage/userImage2.png"
-              alt="Richard Nelson"
-            />
-            <svg
-              className="absolute top-0 -right-2"
-              width="22"
-              height="22"
-              viewBox="0 0 22 22"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <circle cx="10.5" cy="10.5" r="8.5" fill="#2563EB" />
-              <path
-                d="m11.584 13.872 1.752-3.288 1.104-.288a2.7 2.7 0 0 1-.432.576.76.76 0 0 1-.552.24q-.672 0-1.248-.576t-.576-1.464q0-.936.624-1.584.648-.672 1.584-.672.888 0 1.536.672.672.648.672 1.584 0 .384-.168.912-.144.504-.576 1.296l-1.92 3.552zm-5.4 0 1.752-3.288 1.08-.288a2.2 2.2 0 0 1-.408.576.76.76 0 0 1-.552.24q-.696 0-1.272-.576t-.576-1.464q0-.936.624-1.584.648-.672 1.584-.672.888 0 1.536.672.672.648.672 1.584 0 .384-.144.912-.144.504-.576 1.296L7.96 14.832z"
-                fill="#fff"
-              />
-            </svg>
-          </div>
+        <div className="flex flex-col items-center bg-white px-6 py-8 rounded-2xl border shadow-sm max-w-[300px] text-sm text-gray-600 hover:shadow-lg transition">
+          <img
+            className="h-16 w-16 rounded-full mb-4"
+            src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/userImage/userImage2.png"
+            alt="Anjali Verma"
+          />
 
           <p>
-            “Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.”
+            “Booked a luxury car for a wedding via PrimeDrive. No hidden charges,
+            premium cars, and excellent support!”
           </p>
-          <p className="text-lg text-gray-800 font-medium mt-5">
-            Richard Nelson
+
+          <p className="text-lg text-gray-900 font-semibold mt-5">
+            Anjali Verma
           </p>
-          <p className="text-xs">Content Writer</p>
+          <p className="text-xs text-gray-500">Event Planner • Jaipur</p>
         </div>
 
         {/* Card 3 */}
-        <div className="flex flex-col items-center bg-white px-3 py-8 rounded-lg border border-gray-300/80 max-w-[272px] text-sm text-gray-500">
-          <div className="relative mb-4">
-            <img
-              className="h-16 w-16 rounded-full"
-              src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/userImage/userImage3.png"
-              alt="James Washington"
-            />
-            <svg
-              className="absolute top-0 -right-2"
-              width="22"
-              height="22"
-              viewBox="0 0 22 22"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <circle cx="10.5" cy="10.5" r="8.5" fill="#2563EB" />
-              <path
-                d="m11.584 13.872 1.752-3.288 1.104-.288a2.7 2.7 0 0 1-.432.576.76.76 0 0 1-.552.24q-.672 0-1.248-.576t-.576-1.464q0-.936.624-1.584.648-.672 1.584-.672.888 0 1.536.672.672.648.672 1.584 0 .384-.168.912-.144.504-.576 1.296l-1.92 3.552zm-5.4 0 1.752-3.288 1.08-.288a2.2 2.2 0 0 1-.408.576.76.76 0 0 1-.552.24q-.696 0-1.272-.576t-.576-1.464q0-.936.624-1.584.648-.672 1.584-.672.888 0 1.536.672.672.648.672 1.584 0 .384-.144.912-.144.504-.576 1.296L7.96 14.832z"
-                fill="#fff"
-              />
-            </svg>
-          </div>
+        <div className="flex flex-col items-center bg-white px-6 py-8 rounded-2xl border shadow-sm max-w-[300px] text-sm text-gray-600 hover:shadow-lg transition">
+          <img
+            className="h-16 w-16 rounded-full mb-4"
+            src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/userImage/userImage3.png"
+            alt="Aman Khanna"
+          />
 
           <p>
-            “Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.”
+            “Best self-drive experience I’ve had so far. Easy booking, fair
+            pricing per day, and the car felt brand new.”
           </p>
-          <p className="text-lg text-gray-800 font-medium mt-5">
-            James Washington
+
+          <p className="text-lg text-gray-900 font-semibold mt-5">
+            Aman Khanna
           </p>
-          <p className="text-xs">Content Marketing</p>
-
-
-
-
-
-          
+          <p className="text-xs text-gray-500">Software Engineer • Bengaluru</p>
         </div>
       </div>
     </div>
