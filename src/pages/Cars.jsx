@@ -1,9 +1,31 @@
 // src/pages/Cars.jsx
 import { Link } from "react-router-dom";
-import { useState } from "react";
-import { cars } from "../data/cars"; // ✅ Import unified cars array
+import { useState, useEffect } from "react";
+import { cars } from "../data/cars";
+
+// 🔹 Shimmer Card
+const ShimmerCard = () => {
+  return (
+    <div className="bg-white rounded-2xl shadow-xl overflow-hidden animate-pulse">
+      <div className="h-56 bg-gray-300" />
+      <div className="p-5 space-y-3">
+        <div className="h-5 bg-gray-300 rounded w-3/4" />
+        <div className="h-4 bg-gray-300 rounded w-1/2" />
+        <div className="h-3 bg-gray-300 rounded w-full" />
+      </div>
+    </div>
+  );
+};
 
 const Cars = () => {
+  const [loading, setLoading] = useState(true);
+
+  // ⏳ Fake loading for shimmer
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 1200);
+    return () => clearTimeout(timer);
+  }, []);
+
   // 🔹 Card Component
   const Card = ({ car }) => {
     const [tilt, setTilt] = useState({ x: 0, y: 0 });
@@ -22,7 +44,7 @@ const Cars = () => {
 
     return (
       <Link
-        to={`/cars/${car.id}`} // ✅ Matches /cars/:id route
+        to={`/cars/${car.id}`}
         onMouseMove={handleMove}
         onMouseLeave={() => setTilt({ x: 0, y: 0 })}
         style={{
@@ -61,9 +83,11 @@ const Cars = () => {
       </h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {cars.map((car) => (
-          <Card key={car.id} car={car} />
-        ))}
+        {loading
+          ? Array.from({ length: 6 }).map((_, i) => (
+              <ShimmerCard key={i} />
+            ))
+          : cars.map((car) => <Card key={car.id} car={car} />)}
       </div>
     </div>
   );
