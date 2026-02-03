@@ -10,13 +10,11 @@ const ShimmerDetail = () => {
       {/* LEFT */}
       <div>
         <div className="w-full h-96 bg-gray-300 rounded-3xl" />
-
         <div className="grid grid-cols-2 gap-4 mt-6">
           {[1, 2, 3, 4].map((i) => (
             <div key={i} className="h-5 bg-gray-300 rounded w-3/4" />
           ))}
         </div>
-
         <div className="h-4 bg-gray-300 rounded w-1/2 mt-4" />
       </div>
 
@@ -65,30 +63,42 @@ const CarDetail = () => {
     );
   }
 
+  // 🔹 Calculations
+  const isValidDate =
+    pickupDate &&
+    returnDate &&
+    new Date(returnDate) > new Date(pickupDate);
+
+  const totalDays = isValidDate
+    ? Math.ceil(
+        (new Date(returnDate) - new Date(pickupDate)) /
+          (1000 * 60 * 60 * 24)
+      )
+    : 0;
+
+  const pricePerDay = car
+    ? Number(car.price.replace(/[^0-9]/g, ""))
+    : 0;
+
+  const totalPrice = totalDays * pricePerDay;
+
   const handleBooking = () => {
     if (!pickupDate || !returnDate) {
       toast.error("Please select both dates");
       return;
     }
 
-    const start = new Date(pickupDate);
-    const end = new Date(returnDate);
-
-    if (end <= start) {
+    if (!isValidDate) {
       toast.error("Return date must be after pick-up date");
       return;
     }
-
-    const days = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
-    const pricePerDay = Number(car.price.replace(/[^0-9]/g, ""));
-    const totalPrice = days * pricePerDay;
 
     const newBooking = {
       id: Date.now(),
       car: car.name,
       pickup: pickupDate,
       dropoff: returnDate,
-      days,
+      days: totalDays,
       amount: `₹${totalPrice}`,
       status: "Confirmed",
     };
@@ -102,7 +112,7 @@ const CarDetail = () => {
     );
 
     toast.success(
-      `Booking Confirmed 🚗\n${car.name}\n${days} days\n₹${totalPrice}`,
+      `Booking Confirmed 🚗\n${car.name}\n${totalDays} days\n₹${totalPrice}`,
       { duration: 4000 }
     );
 
@@ -155,6 +165,7 @@ const CarDetail = () => {
               {car.description}
             </p>
 
+            {/* BOOKING FORM */}
             <div className="mt-10 bg-white p-8 rounded-3xl shadow-xl border">
               <h3 className="text-2xl font-bold mb-6 text-gray-800">
                 Book This Car
@@ -175,9 +186,49 @@ const CarDetail = () => {
                 />
               </div>
 
+              {/* 🔹 Booking Summary INSIDE FORM */}
+              {pickupDate && returnDate && (
+                <div className="mt-6 bg-gray-50 p-5 rounded-2xl border text-sm space-y-2">
+                  <div className="flex justify-between">
+                    <span>📅 Pick-up</span>
+                    <span className="font-semibold">
+                      {pickupDate}
+                    </span>
+                  </div>
+
+                  <div className="flex justify-between">
+                    <span>📅 Return</span>
+                    <span className="font-semibold">
+                      {returnDate}
+                    </span>
+                  </div>
+
+                  {isValidDate ? (
+                    <>
+                      <div className="flex justify-between">
+                        <span>🧮 Total Days</span>
+                        <span className="font-semibold">
+                          {totalDays}
+                        </span>
+                      </div>
+
+                      <div className="flex justify-between text-green-600 font-bold">
+                        <span>💰 Total Amount</span>
+                        <span>₹{totalPrice}</span>
+                      </div>
+                    </>
+                  ) : (
+                    <p className="text-red-500 text-center">
+                      Return date must be after pick-up date
+                    </p>
+                  )}
+                </div>
+              )}
+
               <button
                 onClick={handleBooking}
-                className="mt-8 w-full bg-green-600 hover:bg-green-700 text-white py-4 rounded-2xl font-bold text-lg"
+                className="mt-8 w-full bg-green-600 hover:bg-green-700 text-white py-4 rounded-2xl font-bold text-lg disabled:opacity-50"
+                disabled={!isValidDate}
               >
                 🚘 Book Now
               </button>
