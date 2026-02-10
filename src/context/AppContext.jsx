@@ -74,6 +74,13 @@ const AppProvider = ({ children }) => {
     fetchCars();
   }, []);
 
+
+
+
+
+
+
+  
   return (
     <AppContext.Provider
       value={{
