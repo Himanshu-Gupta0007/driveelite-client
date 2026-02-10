@@ -100,6 +100,21 @@ const OwnerLayout = () => {
           ))}
         </nav>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         {/* Bottom Actions */}
         <div className="p-6 border-t space-y-3">
           <button
