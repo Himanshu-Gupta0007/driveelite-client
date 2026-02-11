@@ -1,8 +1,12 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useAppContext } from "../context/AppContext";
+import { signupUser } from "../api/auth";
 
-const Auth = () => {
+const Login = () => {
   const [isSignup, setIsSignup] = useState(false);
+  const { login } = useAppContext();
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -14,32 +18,29 @@ const Auth = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  // ⭐ MAIN FUNCTION (API CALL HERE)
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
+    // SIGNUP
     if (isSignup) {
-      console.log("Signup Data:", formData);
-    } else {
-      console.log("Login Data:", {
+      try {
+        await signupUser(formData);
+        alert("Account created successfully! Please login.");
+        setIsSignup(false);
+      } catch (err) {
+        alert(err.response?.data?.message || "Signup failed");
+      }
+    }
+
+    // LOGIN
+    else {
+      const success = await login({
         email: formData.email,
         password: formData.password,
       });
+
+      if (success) navigate("/");
     }
   };
 
@@ -49,10 +50,9 @@ const Auth = () => {
         <h2 className="text-3xl font-bold text-center text-gray-800">
           {isSignup ? "Create Account" : "Login"}
         </h2>
+
         <p className="text-center text-gray-500 mt-2">
-          {isSignup
-            ? "Create your new account"
-            : "Login to your account"}
+          {isSignup ? "Create your new account" : "Login to your account"}
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-5 mt-6">
@@ -110,4 +110,4 @@ const Auth = () => {
   );
 };
 
-export default Auth;
+export default Login;

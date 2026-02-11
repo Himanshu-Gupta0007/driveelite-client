@@ -1,45 +1,44 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 import toast from "react-hot-toast";
-import axios from "../api/axios";
+import { loginUser, logoutUser, getMe } from "../api/auth";
 
-// 1️⃣ Context
+// 1️⃣ Context create
 const AppContext = createContext();
 
-// 2️⃣ Provider
+// 2️⃣ Provider (DEFAULT EXPORT)
 const AppProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [cars, setCars] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // ================= AUTH =================
-
-  // check login on refresh
+  // 🔹 Check auth on refresh
   const checkAuth = async () => {
     try {
-      const res = await axios.get("/auth/me");
-      setUser(res.data.user);
-    } catch (err) {
+      const data = await getMe();
+      setUser(data.user);
+    } catch {
       setUser(null);
     } finally {
       setLoading(false);
     }
   };
 
-  // login
+  // 🔹 Login
   const login = async (formData) => {
     try {
-      const res = await axios.post("/auth/login", formData);
-      setUser(res.data.user);
+      const data = await loginUser(formData);
+      setUser(data.user);
       toast.success("Login successful");
+      return true;
     } catch (err) {
       toast.error(err.response?.data?.message || "Login failed");
+      return false;
     }
   };
 
-  // logout
+  // 🔹 Logout
   const logout = async () => {
     try {
-      await axios.post("/auth/logout");
+      await logoutUser();
       setUser(null);
       toast.success("Logged out");
     } catch {
@@ -47,50 +46,17 @@ const AppProvider = ({ children }) => {
     }
   };
 
-  // ================= CARS =================
-
-  const fetchCars = async () => {
-    try {
-      const res = await axios.get("/cars");
-      setCars(res.data);
-    } catch {
-      toast.error("Failed to load cars");
-    }
-  };
-
-  const addCar = async (carData) => {
-    try {
-      const res = await axios.post("/owner/add-car", carData);
-      setCars(prev => [...prev, res.data]);
-      toast.success("Car added");
-    } catch {
-      toast.error("Failed to add car");
-    }
-  };
-
-  // first load
   useEffect(() => {
     checkAuth();
-    fetchCars();
   }, []);
 
-
-
-
-
-
-
-  
   return (
     <AppContext.Provider
       value={{
         user,
-        cars,
         loading,
         login,
         logout,
-        fetchCars,
-        addCar,
       }}
     >
       {children}
@@ -98,7 +64,8 @@ const AppProvider = ({ children }) => {
   );
 };
 
-// 3️⃣ hook
+// 3️⃣ Custom hook
 export const useAppContext = () => useContext(AppContext);
 
+// ✅ DEFAULT EXPORT (THIS FIXES YOUR ERROR)
 export default AppProvider;

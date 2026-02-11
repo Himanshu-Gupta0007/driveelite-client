@@ -1,9 +1,19 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAppContext } from "../context/AppContext";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState("");
+
+  const { user, logout } = useAppContext();
+  const navigate = useNavigate();
+
+  // logout handler
+  const handleLogout = async () => {
+    await logout();
+    navigate("/auth"); // redirect after logout
+  };
 
   return (
     <nav className="w-full bg-white shadow-md">
@@ -32,7 +42,7 @@ const Navbar = () => {
           </li>
         </ul>
 
-        {/* Search Input (Desktop) */}
+        {/* Search Input */}
         <input
           type="text"
           placeholder="Search cars..."
@@ -41,21 +51,29 @@ const Navbar = () => {
           className="hidden md:block border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
 
-
-        {/* 🔥 Owner Dashboard Link */}
-<Link
-  to="/owner"
-  className="hidden md:block font-medium text-gray-700 hover:text-blue-600"
->
-  Owner Panel
-</Link>
-
-        {/* Login Button */}
-        <Link to="/login">
-          <button className="hidden md:block bg-blue-600 text-white px-4 py-2 rounded-lg">
-            Login
-          </button>
+        {/* Owner Panel */}
+        <Link
+          to="/owner"
+          className="hidden md:block font-medium text-gray-700 hover:text-blue-600"
+        >
+          Owner Panel
         </Link>
+
+        {/* ===== LOGIN / LOGOUT BUTTON DESKTOP ===== */}
+        {user ? (
+          <button
+            onClick={handleLogout}
+            className="hidden md:block bg-red-500 text-white px-4 py-2 rounded-lg"
+          >
+            Logout
+          </button>
+        ) : (
+          <Link to="/login">
+            <button className="hidden md:block bg-blue-600 text-white px-4 py-2 rounded-lg">
+              Login
+            </button>
+          </Link>
+        )}
 
         {/* Mobile Menu Icon */}
         <button
@@ -66,12 +84,11 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* Mobile Menu */}
+      {/* ================= MOBILE MENU ================= */}
       {open && (
         <div className="md:hidden bg-white shadow-lg">
           <ul className="flex flex-col items-center gap-4 py-4 font-medium">
 
-            {/* Search Input (Mobile) */}
             <input
               type="text"
               placeholder="Search cars..."
@@ -80,24 +97,31 @@ const Navbar = () => {
               className="w-11/12 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
 
-            <li>
-              <Link to="/" onClick={() => setOpen(false)}>Home</Link>
-            </li>
-            <li>
-              <Link to="/cars" onClick={() => setOpen(false)}>Car</Link>
-            </li>
-            <li>
-              <Link to="/booking" onClick={() => setOpen(false)}>My Booking</Link>
-            </li>
-            <li>
-              <Link to="/dashboard" onClick={() => setOpen(false)}>Dashboard</Link>
-            </li>
+            <li><Link to="/" onClick={() => setOpen(false)}>Home</Link></li>
+            <li><Link to="/cars" onClick={() => setOpen(false)}>Cars</Link></li>
+            <li><Link to="/booking" onClick={() => setOpen(false)}>My Booking</Link></li>
+            <li><Link to="/dashboard" onClick={() => setOpen(false)}>Dashboard</Link></li>
+            <li><Link to="/owner" onClick={() => setOpen(false)}>Owner Panel</Link></li>
 
-            <Link to="/login" onClick={() => setOpen(false)}>
-              <button className="bg-blue-600 text-white px-4 py-2 rounded-lg">
-                Login
+            {/* ===== LOGIN / LOGOUT MOBILE ===== */}
+            {user ? (
+              <button
+                onClick={() => {
+                  handleLogout();
+                  setOpen(false);
+                }}
+                className="bg-red-500 text-white px-4 py-2 rounded-lg"
+              >
+                Logout
               </button>
-            </Link>
+            ) : (
+              <Link to="/login" onClick={() => setOpen(false)}>
+                <button className="bg-blue-600 text-white px-4 py-2 rounded-lg">
+                  Login
+                </button>
+              </Link>
+            )}
+
           </ul>
         </div>
       )}
