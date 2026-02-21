@@ -219,6 +219,30 @@ export const cars = [
     available: true,
     type: "Sports Sedan • 2021",
     rating: "4.3 • 55 trips",
+
+
+     id: 40,
+  name: "Mahindra XUV700",
+  price: "₹4,500 / day",
+  image:
+    "https://stimg.cardekho.com/images/carexteriorimages/630x420/Mahindra/XUV700/10794/1762509966753/front-left-side-47.jpg?imwidth=420&impolicy=resize",
+  description:
+    "Feature-loaded premium SUV with ADAS safety, powerful engine and comfortable family ride.",
+  year: "2024",
+  seats: "7 Seats",
+  fuel: "Petrol / Diesel",
+  transmission: "Manual / Automatic",
+  location: "Delhi",
+  features: [
+    "ADAS Safety",
+    "Panoramic Sunroof",
+    "Dual 10.25'' Screens",
+    "Sony 3D Sound System",
+  ],
+  tag: "Premium SUV",
+  available: true,
+  type: "SUV • 2024",
+  rating: "4.8 • 120 trips"
   },
 ];
 
